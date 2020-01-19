@@ -1,7 +1,7 @@
 (function () {
     var $ = Zepto;
     var copySourceElemSelector = '#translation_container #action_copy_source';
-    var GRAPHIE_REGEX = /\!\[[^\]]+\]\(web\+graphie[^)]+\)/g;
+    var GRAPHIE_REGEX = /\!\[[^\]]*\]\(web\+graphie[^)]+\)/g;
 
     // Catch the keyboard shortcut specified in manifest
     chrome.runtime.onMessage.addListener(function(message) {
