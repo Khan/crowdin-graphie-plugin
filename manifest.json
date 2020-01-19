@@ -8,7 +8,7 @@
   ],
   "background": {
     "scripts": ["background.js"],
-    "persistent": true
+    "persistent": false
   },
   "commands": {
     "open-graphie": {
@@ -37,7 +37,5 @@
     "48": "khan-logo-new-48.png",
     "128": "khan-logo-new-128.png"
   },
-  "browser_specific_settings": {
-      "gecko": {"id": "danekhollas@gmail.com"}},
   "manifest_version": 2
 }
