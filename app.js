@@ -40,8 +40,9 @@
         title = "Open Graphie " + shortcut;
         // Tune style of the button
         $openGraphieBtn.attr("title", title);
-        $openGraphieBtn.css('font-size', '13px');
-        $openGraphieBtn.css('border', '1px solid gray');
+        $openGraphieBtn.css('font-size', '12px');
+        $openGraphieBtn.css('border', '2px solid gray');
+        $openGraphieBtn.css('padding', '2px');
 
         $copySourceBtn = $(copySourceElemSelector);
         $menu = $copySourceBtn.parent();
