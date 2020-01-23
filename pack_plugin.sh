@@ -5,6 +5,7 @@
 
 # Don't forget to bump version in manifest.json before each official publish!
 version=$(grep '"version"' manifest.json | awk -F'"' '{print $4}')
+browser="chrome"
 REPO_NAME=crowdin-graphie-plugin
 PACKAGE_NAME=${REPO_NAME}-${version}-${browser}
 
@@ -29,7 +30,7 @@ if [[ $? -ne 0 ]];then
    exit 1
 fi
 
-rm -rf .git/ *.md pack_plugin.sh
+rm -rf .git/ *.md pack_plugin.sh LICENSE
 zip -r $PACKAGE_NAME.zip *
 mv $PACKAGE_NAME.zip ../
 cd ..

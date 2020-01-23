@@ -49,15 +49,31 @@
         $menu.append($openGraphieBtn);
 
         var findGraphieLink = function(text) {
-          var match = text.match(GRAPHIE_REGEX);
-          return (match ? match[0] : null)
+          if (typeof text == "string") {
+            var match = text.match(GRAPHIE_REGEX);
+            return (match ? match[0] : null)
+          } else {
+            return null;
+          }
         };
 
         var openGraphie = function() {
             var text = $('#translation').val();
-            // TODO: Get the Graphie link from the English source
-            // not from the translation
-            openGraphieEditor(findGraphieLink(text));
+            // Find graphie in translated string, if it exists
+            // otherwise, take it from the source string
+            if (text != '') {
+              openGraphieEditor(findGraphieLink(text));
+            } else {
+              var sourceStringNodes = document.getElementById("source_phrase_container").childNodes[0]
+              for (var node of sourceStringNodes.childNodes) {
+                var link = findGraphieLink(node.data);
+                if (link) {
+                  openGraphieEditor(link);
+                  // Open only first instance of Graphie link
+                  break;
+                }
+              }
+            }
         };
 
         $openGraphieBtn.on('click', openGraphie);
