@@ -58,21 +58,14 @@
         };
 
         var openGraphie = function() {
-            var text = $('#translation').val();
-            // Find graphie in translated string, if it exists
-            // otherwise, take it from the source string
-            if (text != '') {
-              openGraphieEditor(findGraphieLink(text));
-            } else {
-              var sourceStringNodes = document.getElementById("source_phrase_container").childNodes[0]
-              for (var node of sourceStringNodes.childNodes) {
+            var sourceStringNodes = document.getElementById("source_phrase_container").childNodes[0]
+            for (var node of sourceStringNodes.childNodes) {
                 var link = findGraphieLink(node.data);
                 if (link) {
-                  openGraphieEditor(link);
-                  // Open only first instance of Graphie link
-                  break;
+                    openGraphieEditor(link);
+                    // Open only first instance of Graphie link
+                    break;
                 }
-              }
             }
         };
 
