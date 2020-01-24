@@ -7,7 +7,7 @@
 version=$(grep '"version"' manifest.json | awk -F'"' '{print $4}')
 browser="chrome"
 REPO_NAME=crowdin-graphie-plugin
-PACKAGE_NAME=${REPO_NAME}-${version}-${browser}
+PACKAGE_NAME=${REPO_NAME}-${version}-for-caroline
 
 cd ../
 
