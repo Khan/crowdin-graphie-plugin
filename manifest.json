@@ -2,7 +2,7 @@
   "name": "Crowdin Open Graphie",
   "description": "Opens Graphie from Crowdin window in Graphie editor",
   "author": "Daniel Hollas",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "permissions": [
     "activeTab"
   ],

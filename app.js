@@ -17,7 +17,7 @@
 
     var openGraphieEditor = function (graphieLink) {
       var graphieEditorUrl = 'http://graphie-to-png.kasandbox.org/';
-      if (graphie_link) {
+      if (graphieLink) {
         window.open(graphieEditorUrl + '/?preload=' + graphieLink);
       }
     };
