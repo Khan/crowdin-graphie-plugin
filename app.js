@@ -1,7 +1,8 @@
 (function () {
     var $ = Zepto;
     var copySourceElemSelector = '#translation_container #action_copy_source';
-    var GRAPHIE_REGEX = /\!\[[^\]]*\]\(web\+graphie[^)]+\)/g;
+    var GRAPHIE_REGEX =
+      /(?:web\+graphie|https):\/\/ka-perseus-graphie\.[^\/]+\/[0-9a-f]{40}(?:\.png)?/g;
 
     // Catch the keyboard shortcut specified in manifest
     chrome.runtime.onMessage.addListener(function(message) {
@@ -14,10 +15,10 @@
         }
     });
 
-    var openGraphieEditor = function (graphie_link) {
+    var openGraphieEditor = function (graphieLink) {
       var graphieEditorUrl = 'http://graphie-to-png.kasandbox.org/';
       if (graphie_link) {
-        window.open(graphieEditorUrl + '/?preload=' + graphie_link);
+        window.open(graphieEditorUrl + '/?preload=' + graphieLink);
       }
     };
 
@@ -35,7 +36,8 @@
     var initializePlugin = function() {
 
         // Create a new button
-        $openGraphieBtn = $('<button id="open_graphie" tabindex="-1" class="btn btn-icon">G</button>');
+        $openGraphieBtn =
+          $('<button id="open_graphie" tabindex="-1" class="btn btn-icon">G</button>');
         var shortcut = " (Alt+G)";
         title = "Open Graphie " + shortcut;
         // Tune style of the button
@@ -51,7 +53,7 @@
         var findGraphieLink = function(text) {
           if (typeof text == "string") {
             var match = text.match(GRAPHIE_REGEX);
-            return (match ? match[0] : null)
+            return match ? match[0] : null;
           } else {
             return null;
           }
