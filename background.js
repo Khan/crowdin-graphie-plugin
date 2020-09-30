@@ -1,7 +1,7 @@
+/*global chrome*/
+
 // This Js file is run in the background, see:
 // https://developer.chrome.com/extensions/background_pages
-
-/* eslint-disable no-undef */
 
 // Catch keyboard shortcut defined in manifest.json
 // and send it to the content script

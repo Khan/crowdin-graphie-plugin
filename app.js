@@ -1,6 +1,8 @@
+/*global chrome, document, window*/
+/*global Zepto*/
 /* eslint-disable no-var*/
+
 (function() {
-    // eslint-disable-next-line no-undef
     var $ = Zepto;
     var copySourceElemSelector = '#translation_container #action_copy_source';
     var GRAPHIE_REGEX =
@@ -8,7 +10,6 @@
         /(?:web\+graphie|https):\/\/ka-perseus-graphie\.[^/]+\/[0-9a-f]{40}(?:\.png)?/g;
 
     // Catch the keyboard shortcut specified in manifest
-    // eslint-disable-next-line no-undef
     chrome.runtime.onMessage.addListener(function(message) {
         switch (message.action) {
         case 'open-graphie':
@@ -23,8 +24,7 @@
         var graphieEditorUrl = 'http://graphie-to-png.kasandbox.org/';
         if (graphieLinks) {
             for (var link of graphieLinks) {
-            // eslint-disable-next-line no-undef
-                window.open(`${graphieEditorUrl  }/?preload=${  link}`);
+                window.open(`${graphieEditorUrl}/?preload=${link}`);
             }
         }
     };
@@ -77,7 +77,6 @@
             if (links) {
                 openGraphieEditor(links);
             } else {
-                // eslint-disable-next-line no-undef
                 var sourceStringNodes = document
                     .getElementById('source_phrase_container')
                     .childNodes[0];
