@@ -30,7 +30,7 @@ if [[ $? -ne 0 ]];then
    exit 1
 fi
 
-rm -rf node_modules/ package.json .eslintrc .git/ *.md pack_plugin.sh LICENSE screenshot.png
+rm -rf node_modules/ package.json package-lock.json .eslintrc .git/ *.md pack_plugin.sh LICENSE screenshot.png
 zip -r $PACKAGE_NAME.zip *
 mv $PACKAGE_NAME.zip ../
 cd ..
