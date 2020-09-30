@@ -3,18 +3,19 @@
   "version": "0.4.0",
   "main": "app.js",
   "scripts": {
-    "lint": "eslint app.js background.js"
+    "lint": "eslint *.js",
+    "lint-fix": "eslint --fix *.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/KhanovaSkola/crowdin-graphie-plugin"
   },
-  "author": "Kevin Barabash <kevinbarabash@khanacademy.org>",
+  "author": "Daniel Hollas <dan@khanovaskola.cz>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/KhanovaSkola/crowdin-graphie-plugin/issues"
   },
-  "homepage": "https://github.com/KhanovaSkola/crowdin-graphie-plugin/issues",
+  "homepage": "https://github.com/KhanovaSkola/crowdin-graphie-plugin",
   "devDependencies": {
     "eslint": "^7.10.0",
     "pre-commit": "^1.2.2"

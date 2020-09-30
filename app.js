@@ -1,64 +1,71 @@
 /* eslint-disable no-var*/
-(function () {
+(function() {
     // eslint-disable-next-line no-undef
     var $ = Zepto;
     var copySourceElemSelector = '#translation_container #action_copy_source';
     var GRAPHIE_REGEX =
-      /(?:web\+graphie|https):\/\/ka-perseus-graphie\.[^\/]+\/[0-9a-f]{40}(?:\.png)?/g;
+        // eslint-disable-next-line max-len
+        /(?:web\+graphie|https):\/\/ka-perseus-graphie\.[^/]+\/[0-9a-f]{40}(?:\.png)?/g;
 
     // Catch the keyboard shortcut specified in manifest
     // eslint-disable-next-line no-undef
     chrome.runtime.onMessage.addListener(function(message) {
         switch (message.action) {
-            case "open-graphie":
-                $('#open_graphie').click();
-                break;
-            default:
-                break;
+        case 'open-graphie':
+            $('#open_graphie').click();
+            break;
+        default:
+            break;
         }
     });
 
     var openGraphieEditor = function(graphieLinks) {
-      var graphieEditorUrl = 'http://graphie-to-png.kasandbox.org/';
-      if (graphieLinks) {
-        for (var link of graphieLinks) {
+        var graphieEditorUrl = 'http://graphie-to-png.kasandbox.org/';
+        if (graphieLinks) {
+            for (var link of graphieLinks) {
             // eslint-disable-next-line no-undef
-            window.open(graphieEditorUrl + '/?preload=' + link);
+                window.open(`${graphieEditorUrl  }/?preload=${  link}`);
+            }
         }
-      }
     };
 
-    var whenElemIsReady = function (selector, cb) {
-
+    var whenElemIsReady = function(selector, cb) {
         if ($(selector).length > 0) {
             cb();
         } else {
-            setTimeout(function () {
+            setTimeout(function() {
                 whenElemIsReady(selector, cb);
-            }, 100)
+            }, 100);
         }
     };
 
     var findGraphieLinks = function(text) {
-      if (typeof text === "string") {
-        return text.match(GRAPHIE_REGEX);
-      }
-      return null;
+        if (typeof text === 'string') {
+            return text.match(GRAPHIE_REGEX);
+        }
+        return null;
+    };
+
+    var createBtn = function() {
+        var $openGraphieBtn =
+            $('<button id="open_graphie" tabindex="-1" class="btn btn-icon">'
+            + 'G</button>');
+        // Tune the button style
+        var shortcut = '(Alt+G)';
+        var title = `Open Graphie ${  shortcut}`;
+        $openGraphieBtn.attr('title', title);
+        $openGraphieBtn.css('font-size', '12px');
+        $openGraphieBtn.css('border', '2px solid gray');
+        $openGraphieBtn.css('padding', '2px');
+        return $openGraphieBtn;
     };
 
     var initializePlugin = function() {
 
         // Create a new button
-        var $openGraphieBtn =
-            $('<button id="open_graphie" tabindex="-1" class="btn btn-icon">G</button>');
-        // Tune the button style
-        var shortcut = "(Alt+G)";
-        var title = "Open Graphie " + shortcut;
-        $openGraphieBtn.attr("title", title);
-        $openGraphieBtn.css('font-size', '12px');
-        $openGraphieBtn.css('border', '2px solid gray');
-        $openGraphieBtn.css('padding', '2px');
+        var $openGraphieBtn = createBtn();
 
+        // Append Crowdin menu, next to existing buttons
         var $copySourceBtn = $(copySourceElemSelector);
         var $menu = $copySourceBtn.parent();
         $menu.append($openGraphieBtn);
@@ -68,16 +75,18 @@
             // otherwise, take it from the source string
             var links = findGraphieLinks($('#translation').val());
             if (links) {
-              openGraphieEditor(links);
+                openGraphieEditor(links);
             } else {
-              // eslint-disable-next-line no-undef
-              var sourceStringNodes = document.getElementById("source_phrase_container").childNodes[0];
-              for (var node of sourceStringNodes.childNodes) {
-                links = findGraphieLinks(node.data);
-                if (links) {
-                  openGraphieEditor(links);
+                // eslint-disable-next-line no-undef
+                var sourceStringNodes = document
+                    .getElementById('source_phrase_container')
+                    .childNodes[0];
+                for (var node of sourceStringNodes.childNodes) {
+                    links = findGraphieLinks(node.data);
+                    if (links) {
+                        openGraphieEditor(links);
+                    }
                 }
-              }
             }
         };
 
