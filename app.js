@@ -7,7 +7,7 @@
     var copySourceElemSelector = '#translation_container #action_copy_source';
     var GRAPHIE_REGEX =
         // eslint-disable-next-line max-len
-        /(?:web\+graphie|https):\/\/ka-perseus-graphie\.[^/]+\/[0-9a-f]{40}(?:\.png)?/g;
+        /(?:(?:web)?\+graphie|https):\/\/ka-perseus-graphie\.[^/]+\/[0-9a-f]{40}(?:\.png)?/g;
 
     // Catch the keyboard shortcut specified in manifest
     chrome.runtime.onMessage.addListener(function(message) {
@@ -24,6 +24,12 @@
         var graphieEditorUrl = 'http://graphie-to-png.kasandbox.org/';
         if (graphieLinks) {
             for (var link of graphieLinks) {
+                // Fix for Graphies extracted from the English source string
+                // Crowdin puts "web" into separate span
+                // so we need to add it back here.
+                if (link.startsWith('+graphie')) {
+                    link = `web${link}`;
+                }
                 window.open(`${graphieEditorUrl}/?preload=${link}`);
             }
         }
