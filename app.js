@@ -1,10 +1,13 @@
+/* eslint-disable no-var*/
 (function () {
+    // eslint-disable-next-line no-undef
     var $ = Zepto;
     var copySourceElemSelector = '#translation_container #action_copy_source';
     var GRAPHIE_REGEX =
       /(?:web\+graphie|https):\/\/ka-perseus-graphie\.[^\/]+\/[0-9a-f]{40}(?:\.png)?/g;
 
     // Catch the keyboard shortcut specified in manifest
+    // eslint-disable-next-line no-undef
     chrome.runtime.onMessage.addListener(function(message) {
         switch (message.action) {
             case "open-graphie":
@@ -15,10 +18,13 @@
         }
     });
 
-    var openGraphieEditor = function (graphieLink) {
+    var openGraphieEditor = function(graphieLinks) {
       var graphieEditorUrl = 'http://graphie-to-png.kasandbox.org/';
-      if (graphieLink) {
-        window.open(graphieEditorUrl + '/?preload=' + graphieLink);
+      if (graphieLinks) {
+        for (var link of graphieLinks) {
+            // eslint-disable-next-line no-undef
+            window.open(graphieEditorUrl + '/?preload=' + link);
+        }
       }
     };
 
@@ -33,46 +39,43 @@
         }
     };
 
+    var findGraphieLinks = function(text) {
+      if (typeof text === "string") {
+        return text.match(GRAPHIE_REGEX);
+      }
+      return null;
+    };
+
     var initializePlugin = function() {
 
         // Create a new button
-        $openGraphieBtn =
-          $('<button id="open_graphie" tabindex="-1" class="btn btn-icon">G</button>');
-        var shortcut = " (Alt+G)";
-        title = "Open Graphie " + shortcut;
-        // Tune style of the button
+        var $openGraphieBtn =
+            $('<button id="open_graphie" tabindex="-1" class="btn btn-icon">G</button>');
+        // Tune the button style
+        var shortcut = "(Alt+G)";
+        var title = "Open Graphie " + shortcut;
         $openGraphieBtn.attr("title", title);
         $openGraphieBtn.css('font-size', '12px');
         $openGraphieBtn.css('border', '2px solid gray');
         $openGraphieBtn.css('padding', '2px');
 
-        $copySourceBtn = $(copySourceElemSelector);
-        $menu = $copySourceBtn.parent();
+        var $copySourceBtn = $(copySourceElemSelector);
+        var $menu = $copySourceBtn.parent();
         $menu.append($openGraphieBtn);
-
-        var findGraphieLink = function(text) {
-          if (typeof text == "string") {
-            var match = text.match(GRAPHIE_REGEX);
-            return match ? match[0] : null;
-          } else {
-            return null;
-          }
-        };
 
         var openGraphie = function() {
             // First try finding graphie in translated string (if it exists)
             // otherwise, take it from the source string
-            var link = findGraphieLink($('#translation').val());
-            if (link) {
-              openGraphieEditor(link);
+            var links = findGraphieLinks($('#translation').val());
+            if (links) {
+              openGraphieEditor(links);
             } else {
-              var sourceStringNodes = document.getElementById("source_phrase_container").childNodes[0]
+              // eslint-disable-next-line no-undef
+              var sourceStringNodes = document.getElementById("source_phrase_container").childNodes[0];
               for (var node of sourceStringNodes.childNodes) {
-                link = findGraphieLink(node.data);
-                if (link) {
-                  openGraphieEditor(link);
-                  // Open only first instance of Graphie link
-                  break;
+                links = findGraphieLinks(node.data);
+                if (links) {
+                  openGraphieEditor(links);
                 }
               }
             }
