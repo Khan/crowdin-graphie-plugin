@@ -7,8 +7,7 @@
     "activeTab"
   ],
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "service_worker": "background.js"
   },
   "commands": {
     "open-graphie": {
@@ -37,5 +36,5 @@
     "48": "khan-logo-new-48.png",
     "128": "khan-logo-new-128.png"
   },
-  "manifest_version": 2
+  "manifest_version": 3
 }
