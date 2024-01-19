@@ -21,8 +21,8 @@
   "content_scripts": [
     {
       "matches": [
-        "http://crowdin.com/translate/khanacademy/*",
-        "https://crowdin.com/translate/khanacademy/*"
+        "https://crowdin.com/translate/khanacademy/*",
+        "https://crowdin.com/editor/khanacademy/*"
       ],
       "js": [
         "3rdPartyLibs/zepto.min.js",
